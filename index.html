@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Frontend. Практика по jQuery, завдання.</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="format-detection" content="telephone=no">
+	<style>
+		body {padding-top: 35px;}
+		#mainwrapper { padding: 0 60px;}
+		section { padding: 0 0 100px;}
+		section:after { content: ''; display: block; clear: both;}
+		nav {
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 899;
+			width: 100%;
+			background: #f3f3f3;
+			border-bottom: 1px solid silver;
+		}
+		nav.bottom {top: auto; bottom: 0;}
+		nav menu {
+			margin: 0;
+			padding: 0;
+		}
+		nav menu li {
+			display: inline-block;
+		}
+		nav menu li a {
+			display: block;
+			padding: 8px 16px;
+		}
+		nav menu li a:hover {
+			color: green;
+		}
+		nav menu li a[href^='#'] {
+			text-decoration-style: dashed;
+		}
+		nav menu li.active a {
+			background: rgba(255, 255, 0, 0.2);
+		}
+		#menu span { cursor: pointer;}
+		#menu span:hover { background: #aaa;}
+		#menu .expmenu { width: 200px;}
+		#menu ul { font-size: 140%; padding-left: 20px;}
+		#menu ul ul { font-size: 80%;}
+		#menu a, #menu span { display: inline-block; padding: 6px 4px;}
+		#menu a:hover { color: red;}
+
+		#akk p { margin: 0;}
+		#akk .akkordion { float: left; margin: 0 40px 0 0; padding: 0; width: 234px;}
+		#akk li { list-style: none; border: 1px solid #999;}
+		#akk li:not(:first-child) { border-top: none;}
+		#akk .akk-title,
+		#akk .akk-box { padding: 8px 16px;}
+		#akk .akk-title { cursor: pointer; border-bottom: 1px solid #999;}
+		#akk .akk-title:hover { background: #ccc;}
+		#akk .active .akk-title { background: rgba(255, 0, 0, 0.3);}
+
+		#tabs ul, #tabs p { margin: 0; padding: 0;}
+		#tabs div { padding: 8px 16px; width: 400px; border: 1px solid #999;}
+		#tabs img { width: 100%;}
+		#tabs hr { margin: 60px 0;}
+		#tabs li { display: inline-block; list-style: none; border: 1px solid #999; border-bottom: none;}
+		#tabs li a { display: inline-block; padding: 8px 16px; text-decoration: none; color: #000;}
+		#tabs li a:hover { background: #ccc;}
+		#tabs li.active a { background: rgba(255, 0, 0, 0.3);}
+		
+		.to-top {
+			position: fixed;
+			right: 20px;
+			bottom: 80px;
+			width: 80px;
+			height: 80px;
+			font-size: 0;
+			line-height: 0;
+			background: white;
+			border: 1px solid silver;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		.to-top:before {
+			content: "";
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			width: 1px;
+			height: 1px;
+			border-left: 24px solid transparent;
+			border-right: 24px solid transparent;
+			border-bottom: 24px solid #aaa;
+			transform: translate(-50%, -50%);
+		}
+		.to-top:focus {
+			outline: none;
+		}
+		.to-top:hover {
+			border-color: #999;
+		}
+		.to-top:hover:before {
+			border-bottom-color: #777;
+		}
+		.fine-select-wrap {
+			position: relative;
+			z-index: 17;
+			width: 250px;
+		}
+		.fine-select-wrap p {
+			position: relative;
+			margin: 0;
+			padding: 6px 48px 6px 12px;
+			border: 1px solid green;
+			cursor: pointer;
+		}
+		.fine-select-wrap p:after {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 40px;
+			height: 100%;
+			border-left: 1px solid blue;
+		}
+		.fine-select-wrap p:before {
+			content: '';
+			position: absolute;
+			right: 4px;
+			top: 10px;
+			width: 0;
+			height: 0;
+			border-top: 12px solid orange;
+			border-left: 16px solid transparent;
+			border-right: 16px solid transparent;
+		}
+		.fine-select-wrap ul {
+			position: absolute;
+			display: none;
+			left: 0;
+			top: 100%;
+			margin: 0;
+			padding: 0 !important;
+			box-sizing: border-box;
+			list-style: none;
+			width: 100%;
+			border: 1px solid silver;
+			border-top: none;
+		}
+		.fine-select-wrap ul li {
+			padding: 4px 12px;
+			border-top: 1px solid silver;
+			background: #fff;
+			cursor: pointer;
+		}
+		.fine-select-wrap ul li:hover {
+			background: #ffc;
+		}
+	</style>
+</head>
+<body class="s-top">
+<div id="mainwrapper">
+	<nav>
+		<menu>
+			<li><a href="/">Home</a></li>
+			<li><a href="#menu">Menu</a></li>
+			<li><a href="#akk">Accordeon</a></li>
+			<li><a href="#tabs">Tabs</a></li>
+			<li><a href="#sweetcats">SweetyCats</a></li>
+			<li><a href="#lorem">Lorem</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="https://facebook.com/my-group">Facebook</a></li>
+		</menu>
+	</nav>
+	<nav class="bottom">
+		<menu>
+			<li><a href="/">Home</a></li>
+			<li><a href="#menu">Menu</a></li>
+			<li><a href="#akk">Accordeon</a></li>
+			<li><a href="#tabs">Tabs</a></li>
+			<li><a href="#sweetcats">SweetyCats</a></li>
+			<li><a href="#lorem">Lorem</a></li>
+			<li><a href="about.html">About</a></li>
+			<li><a href="https://facebook.com/my-group">Facebook</a></li>
+		</menu>
+	</nav>
+	<h1>Практика по jQuery.</h1>
+
+	<section id="menu">
+		<h2>Меню.</h2>
+
+		<header>
+			<ul class="expmenu">
+				<li><span>Пункт 1</span>
+					<ul>
+						<li><span>Пункт 1-1</span>
+							<ul>
+								<li><a href="#">Пункт 1-1-1</a></li>
+								<li><a href="#">Пункт 1-1-2</a></li>
+							</ul>
+						</li>
+						<li><span>Пункт 1-2</span>
+							<ul>
+								<li><a href="#">Пункт 1-2-1</a></li>
+								<li><a href="#">Пункт 1-2-2</a></li>
+								<li><a href="#">Пункт 1-2-3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Пункт 1-3</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Пункт 2</a></li>
+				<li><span>Пункт 3</span>
+					<ul>
+						<li><span>Пункт 3-1</span>
+							<ul>
+								<li><a href="#">Пункт 3-1-1</a></li>
+								<li><a href="#">Пункт 3-1-2</a></li>
+								<li><a href="#">Пункт 3-1-3</a></li>
+							</ul>
+						</li>
+						<li><span>Пункт 3-2</span>
+							<ul>
+								<li><a href="#">Пункт 3-2-1</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><span>Пункт 4</span>
+					<ul>
+						<li><a href="#">Пункт 4-1</a></li>
+						<li><span>Пункт 4-2</span>
+							<ul>
+								<li><a href="#">Пункт 4-2-1</a></li>
+								<li><a href="#">Пункт 4-2-2</a></li>
+								<li><a href="#">Пункт 4-2-3</a></li>
+								<li><a href="#">Пункт 4-2-4</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</header>
+
+		<hr>
+		<main>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<select class="fine-select" placeholder="Choose...">
+				<option>aaa</option>
+				<option>bbb</option>
+				<option>ccc</option>
+			</select>
+			<br><br><br><br><br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<select class="fine-select">
+				<option>aaa</option>
+				<option>bbb</option>
+				<option>ccc</option>
+			</select>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+		</main>
+		<hr>
+
+		<footer>
+			<ul class="expmenu">
+				<li><span>Пункт 1</span>
+					<ul>
+						<li><span>Пункт 1-1</span>
+							<ul>
+								<li><a href="#">Пункт 1-1-1</a></li>
+								<li><a href="#">Пункт 1-1-2</a></li>
+							</ul>
+						</li>
+						<li><span>Пункт 1-2</span>
+							<ul>
+								<li><a href="#">Пункт 1-2-1</a></li>
+								<li><a href="#">Пункт 1-2-2</a></li>
+								<li><a href="#">Пункт 1-2-3</a></li>
+							</ul>
+						</li>
+						<li><a href="#">Пункт 1-3</a></li>
+					</ul>
+				</li>
+				<li><a href="#">Пункт 2</a></li>
+				<li><span>Пункт 3</span>
+					<ul>
+						<li><span>Пункт 3-1</span>
+							<ul>
+								<li><a href="#">Пункт 3-1-1</a></li>
+								<li><a href="#">Пункт 3-1-2</a></li>
+								<li><a href="#">Пункт 3-1-3</a></li>
+							</ul>
+						</li>
+						<li><span>Пункт 3-2</span>
+							<ul>
+								<li><a href="#">Пункт 3-2-1</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li><span>Пункт 4</span>
+					<ul>
+						<li><a href="#">Пункт 4-1</a></li>
+						<li><span>Пункт 4-2</span>
+							<ul>
+								<li><a href="#">Пункт 4-2-1</a></li>
+								<li><a href="#">Пункт 4-2-2</a></li>
+								<li><a href="#">Пункт 4-2-3</a></li>
+								<li><a href="#">Пункт 4-2-4</a></li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</footer>
+	</section>
+
+	<section id="akk">
+		<h2>Акордеон.</h2>
+
+		<ul class="akkordion">
+			<li>
+				<p class="akk-title">Заголовок 1</p>
+				<div class="akk-box"><p>Lorem ipsum dolor sit amet, vidit signiferumque an cum, nemore facilisis abhorreant eam no. Nam ut ullum velit petentium, sea te eleifend intellegebat.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 2</p>
+				<div class="akk-box"><p>Tale euripidis at qui, pro sumo munere aeterno ut.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 3</p>
+				<div class="akk-box"><img src="http://stephboreldesign.com/wp-content/uploads/2012/03/lorem-ipsum-logo.jpg" alt="" width="200"></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 4</p>
+				<div class="akk-box"><p>Quo ea expetenda periculis vituperatoribus. Eleifend senserit an qui, modus partem est eu. Id soluta facilis complectitur qui, sea homero fastidii gloriatur ut, qui tritani eruditi definitionem te.</p></div>
+			</li>
+		</ul>
+
+		<ul class="akkordion">
+			<li>
+				<p class="akk-title">Заголовок 1</p>
+				<div class="akk-box"><p>Lorem ipsum dolor sit amet, vidit signiferumque an cum, nemore facilisis abhorreant eam no. Nam ut ullum velit petentium, sea te eleifend intellegebat.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 2</p>
+				<div class="akk-box"><p>Tale euripidis at qui, pro sumo munere aeterno ut.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 3</p>
+				<div class="akk-box"><img src="http://stephboreldesign.com/wp-content/uploads/2012/03/lorem-ipsum-logo.jpg" alt="" width="200"></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 4</p>
+				<div class="akk-box"><p>Quo ea expetenda periculis vituperatoribus. Eleifend senserit an qui, modus partem est eu. Id soluta facilis complectitur qui, sea homero fastidii gloriatur ut, qui tritani eruditi definitionem te.</p></div>
+			</li>
+		</ul>
+
+		<ul class="akkordion">
+			<li>
+				<p class="akk-title">Заголовок 1</p>
+				<div class="akk-box"><p>Lorem ipsum dolor sit amet, vidit signiferumque an cum, nemore facilisis abhorreant eam no. Nam ut ullum velit petentium, sea te eleifend intellegebat.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 2</p>
+				<div class="akk-box"><p>Tale euripidis at qui, pro sumo munere aeterno ut.</p></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 3</p>
+				<div class="akk-box"><img src="http://stephboreldesign.com/wp-content/uploads/2012/03/lorem-ipsum-logo.jpg" alt="" width="200"></div>
+			</li>
+			<li>
+				<p class="akk-title">Заголовок 4</p>
+				<div class="akk-box"><p>Quo ea expetenda periculis vituperatoribus. Eleifend senserit an qui, modus partem est eu. Id soluta facilis complectitur qui, sea homero fastidii gloriatur ut, qui tritani eruditi definitionem te.</p></div>
+			</li>
+		</ul>
+	</section>
+
+	<section id="tabs">
+		<h2>Таби.</h2>
+
+		<ul class="tabs">
+			<li><a href="#tab_a1">Кот 1</a></li>
+			<li><a href="#tab_a2">Кот 2</a></li>
+			<li><a href="#tab_a3">Кот 3</a></li>
+			<li><a href="#tab_a4">Кот 4</a></li>
+		</ul>
+
+		<div id="tab_a1"><img alt="cat" src="https://pbs.twimg.com/media/CPMfjl2WwAA3Qt8.jpg"></div>
+		<div id="tab_a2"><img alt="cat" src="http://2.bp.blogspot.com/-RiV85iTK7fE/UZC8TLmA97I/AAAAAAAAAAg/zBkPUJUMXLQ/s1600/iStock_000007621423Small.jpg"></div>
+		<div id="tab_a3"><img alt="cat" src="https://pbs.twimg.com/profile_images/686281053242306561/ZlPUMXqg.jpg"></div>
+		<div id="tab_a4"><img alt="cat" src="http://cms.hostelbookers.com/hbblog/wp-content/uploads/sites/3/2012/02/cat.jpg"></div>
+
+		<hr>
+
+		<ul class="tabs">
+			<li><a href="#tab_b1">Таб 1</a></li>
+			<li><a href="#tab_b2">Таб 2</a></li>
+			<li><a href="#tab_b3">Таб 3</a></li>
+			<li><a href="#tab_b4">Таб 4</a></li>
+		</ul>
+
+		<div id="tab_b1"><p>Lorem ipsum dolor sit amet, vidit signiferumque an cum, nemore facilisis abhorreant eam no. Nam ut ullum velit petentium, sea te eleifend intellegebat.</p></div>
+		<div id="tab_b2"><p>Tale euripidis at qui, pro sumo munere aeterno ut.</p></div>
+		<div id="tab_b3"><img src="http://stephboreldesign.com/wp-content/uploads/2012/03/lorem-ipsum-logo.jpg" alt="" width="200"></div>
+		<div id="tab_b4"><p>Quo ea expetenda periculis vituperatoribus. Eleifend senserit an qui, modus partem est eu. Id soluta facilis complectitur qui, sea homero fastidii gloriatur ut, qui tritani eruditi definitionem te.</p></div>
+
+	</section>
+
+	<section id="sweetcats">
+		<h2>Sweety Cats</h2>
+		<h3>Plugin ZoomImage</h3>
+		<img src="img/cat.jpg" alt="cat" class="zoom-image" width="250">
+		<br><br>
+		<img src="img/panda.jpg" alt="panda" class="zoom-image" width="200">
+		<br><br>
+		<img src="http://www.pethealthnetwork.com/sites/default/files/cat-secretly-stressed178832700.jpg" alt="cat"><br><br>
+		<img src="http://www.cutecatgifs.com/wp-content/uploads/2014/07/cute-aww.gif" alt="cat"><br><br>
+		<img src="http://domesticcatworld.com/wp-content/uploads/2012/10/catwhiskers.jpg" alt="cat"><br><br>
+		<img src="http://www.catbehaviorassociates.com/wp-content/uploads/2012/10/iStock_000000177340XSmall.jpg" alt="cat"><br><br>
+		<img src="https://media.tenor.com/images/f13bb5650f28b5bd24ad28447c0c00f6/tenor.gif" alt="cat"><br><br>
+	</section>
+
+	<section id="lorem">
+		<h2>LoremIpsum</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum commodi modi inventore ad reiciendis ratione sunt aut explicabo quod dicta placeat minima tempore nihil, illo esse, molestiae temporibus, fugiat earum suscipit fugit, quidem! Ipsa quod tempore eveniet doloremque minus excepturi. Culpa impedit, optio omnis fugit quibusdam voluptatem facere cum architecto, obcaecati veniam mollitia dignissimos molestiae quia a minima deleniti aperiam error aliquid nam. Enim cumque, quasi tempore totam soluta at veniam voluptates? Tempore dolorum vero, ea dolore obcaecati doloremque sequi sapiente animi sunt, ullam blanditiis neque, esse deleniti? Ullam doloribus sit harum quibusdam deserunt voluptatibus amet, explicabo, quis tempore quidem unde nulla perferendis quaerat fuga non, facere suscipit similique! Doloremque deserunt laborum asperiores praesentium voluptatibus laudantium voluptatem aperiam quaerat deleniti aspernatur, dicta iusto, ullam ratione voluptas animi. Dolorum eligendi ipsum eos nostrum repudiandae velit quisquam, iste soluta ipsa obcaecati? Necessitatibus nostrum consectetur error! Sapiente qui laboriosam veniam voluptas, tempore ullam. Libero veritatis accusantium, mollitia architecto incidunt dolorem quia minima consequuntur qui in velit voluptatem facilis sit, dolorum eaque, possimus voluptatum soluta. Ratione deleniti velit soluta ut voluptas, possimus porro, perspiciatis quod! Fuga non dolore facilis repellat delectus error dicta eos, aperiam qui nemo accusantium tempora sunt, a tenetur! Saepe possimus id quae. Id, perspiciatis fugit in obcaecati repellat dicta neque atque. Earum, harum quis quod velit aspernatur dicta consequatur. Ipsam animi itaque officia ex recusandae. Inventore cumque laborum ipsum provident, maiores, sed nostrum doloribus libero ut, officia assumenda explicabo minus ipsam. Libero debitis illum aperiam cumque ipsam, provident temporibus dignissimos, mollitia tenetur placeat molestias recusandae. Excepturi corporis, ut officia odio illum unde ratione quaerat commodi mollitia iste! Voluptas natus vel provident, molestiae dolores distinctio cumque, placeat hic, excepturi quibusdam saepe quam. Reprehenderit ab amet voluptate maxime ex, quia placeat nam quaerat ut, modi asperiores neque. Sequi, quidem esse incidunt ullam sapiente, quia error vitae at vero odio qui molestiae laboriosam inventore cumque quas temporibus minus adipisci, aperiam id eligendi consectetur possimus ab, dolorum non optio. Laborum natus modi consequuntur, sequi unde architecto, suscipit, iusto eos alias quaerat reiciendis iure nostrum ab. Quo id, molestias eligendi harum ratione numquam nisi!</p>
+	</section>
+
+</div>
+<script src="jquery-3.3.1.min.js"></script>
+<script src="jquery-scrollTop.js"></script>
+<script src="jquery-navmenu.js"></script>
+<script src="jquery-zoomimage.js"></script>
+<script src="jquery-fineSelect.js"></script>
+<script>
+	(function($){
+
+		/* Меню */
+		$('.expmenu ul').hide();
+		$('.expmenu li > span').on('click', function(){
+			$(this).nextAll('ul').slideToggle();
+		});
+
+		/* Аккордеон */
+		$('.akkordion li:not(:first-child) .akk-box').hide();
+		$('.akkordion .akk-title').on('click', function(){
+			let $currentBox = $(this).nextAll('.akk-box').slideDown();
+			$(this).parents('.akkordion').find('.akk-box').not($currentBox).slideUp();
+		});
+
+		/*Таби*/
+		$('.tabs li:first-child').addClass('active');
+		$('.tabs li:not(:first-child) a').each(hideAnotherTabs);
+		$('.tabs a').on('click', function(e){
+			let $a = $(this);
+			e.preventDefault();
+			$a.parent().addClass('active').siblings().removeClass('active').find('a').each(hideAnotherTabs);
+			$($a.attr('href')).show();
+		});
+
+		function hideAnotherTabs(){
+			$($(this).attr('href')).hide();
+		}
+
+		/*Кнопка прокрутки вгору*/
+		scrollTop(2000, '.s-top');
+
+		/* NavMenu */
+		$('nav menu').navMenu(500, 100);
+
+		/* ZoomImage */
+		$('.zoom-image').zoomImage();
+
+		/* FineSelect */
+		$('.fine-select').fineSelect();
+
+	})(jQuery);
+</script>
+
+</body>
+</html>
