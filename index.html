@@ -446,20 +446,20 @@
 <script>
 	(function($){
 
-		/* Меню */
+		/* Menu */
 		$('.expmenu ul').hide();
 		$('.expmenu li > span').on('click', function(){
 			$(this).nextAll('ul').slideToggle();
 		});
 
-		/* Аккордеон */
+		/* Accordion */
 		$('.akkordion li:not(:first-child) .akk-box').hide();
 		$('.akkordion .akk-title').on('click', function(){
 			let $currentBox = $(this).nextAll('.akk-box').slideDown();
 			$(this).parents('.akkordion').find('.akk-box').not($currentBox).slideUp();
 		});
 
-		/*Таби*/
+		/* Tabs */
 		$('.tabs li:first-child').addClass('active');
 		$('.tabs li:not(:first-child) a').each(hideAnotherTabs);
 		$('.tabs a').on('click', function(e){
@@ -473,7 +473,7 @@
 			$($(this).attr('href')).hide();
 		}
 
-		/*Кнопка прокрутки вгору*/
+		/* Button scroll top */
 		scrollTop(2000, '.s-top');
 
 		/* NavMenu */
